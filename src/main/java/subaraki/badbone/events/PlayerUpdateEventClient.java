@@ -13,12 +13,13 @@ public class PlayerUpdateEventClient {
 
     @SubscribeEvent
     public static void clientUpdatePose(TickEvent.PlayerTickEvent event) {
-        if (event.phase != null && event.phase.equals(TickEvent.Phase.START))
+        if (event.phase != null && event.phase.equals(TickEvent.Phase.START)) {
             if (event.player instanceof LocalPlayer player) {
                 if (player.hasEffect(BadBoneEffects.BACK_HURT.get()) || player.hasEffect(BadBoneEffects.KNEE_HURT.get())) {
                     player.input.shiftKeyDown = true;
                     player.setShiftKeyDown(true);
                 }
             }
+        }
     }
 }
