@@ -20,7 +20,7 @@ apply plugin: org.spongepowered.asm.gradle.plugins.MixinGradlePlugin
 
 version = '1.17.1-1.0.0.0'
 group = 'subaraki' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'bado'
+archivesBaseName = 'badbone'
 
 // Mojang ships Java 16 to end users in 1.17+ instead of Java 8 in 1.16 or lower, so your mod should target Java 16.
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
