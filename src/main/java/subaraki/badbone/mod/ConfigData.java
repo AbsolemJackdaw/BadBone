@@ -1,8 +1,6 @@
 package subaraki.badbone.mod;
 
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -46,12 +44,12 @@ public class ConfigData {
 
     public static void onLoad(ModConfigEvent.Loading event) {
         refreshServer();
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ConfigData::refreshClient);
+        refreshClient();
     }
     
     public static void onReload(ModConfigEvent.Reloading event) {
         refreshServer();
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ConfigData::refreshClient);
+        refreshClient();
     }
 
     public static class ServerConfig {
