@@ -1,6 +1,9 @@
 package subaraki.badbone.mod;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class ConfigData {
@@ -14,8 +17,7 @@ public class ConfigData {
     public static int frequencyKnee = 1;
     public static int frequencyArthritis = 24_000;
     public static int frequencyEyes = 24_000;
-
-
+    
     static {
         final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
         SERVER_SPEC = specPair.getRight();
@@ -42,6 +44,16 @@ public class ConfigData {
 
     }
 
+    public static void onLoad(ModConfigEvent.Loading event) {
+        refreshServer();
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ConfigData::refreshClient);
+    }
+    
+    public static void onReload(ModConfigEvent.Reloading event) {
+        refreshServer();
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ConfigData::refreshClient);
+    }
+
     public static class ServerConfig {
 
         public final ForgeConfigSpec.IntValue freqHurt;
@@ -53,11 +65,11 @@ public class ConfigData {
         ServerConfig(ForgeConfigSpec.Builder builder) {
 
             builder.push("general");
-            freqHurt = builder.comment("frequency at which the inventory gets checked for backpain (values in ticks)").translation("translate.pick.vanilla").defineInRange("", 24_000 / 3, 1, 24_000 * 10);
-            chanHurt = builder.comment("chance to have back pain applied when inventory is too full").translation("translate.pick.vanilla").defineInRange("", 10, 1, 1000);
-            freqKnee = builder.comment("frequency at which your knees can go bad when falling (values in ticks)").translation("translate.pick.vanilla").defineInRange("", 1, 1, 1000);
-            freqArth = builder.comment("frequency at which arthritis will occur when using items (values in ticks)").translation("translate.pick.vanilla").defineInRange("", 24_000 / 2, 1, 24_000 * 10);
-            freqEyes = builder.comment("frequency at which your eyes will go bad (values in ticks)").translation("translate.pick.vanilla").defineInRange("", 24_000 * 3, 1, 24_000 * 30);
+            freqHurt = builder.comment("frequency at which the inventory gets checked for backpain (values in ticks)").translation("translate.pick.vanilla").defineInRange("hurt_frequency", 24_000 / 3, 1, 24_000 * 10);
+            chanHurt = builder.comment("chance to have back pain applied when inventory is too full").translation("translate.pick.vanilla").defineInRange("hurt_chance", 10, 1, 1000);
+            freqKnee = builder.comment("frequency at which your knees can go bad when falling (values in ticks)").translation("translate.pick.vanilla").defineInRange("knee_frequency", 1, 1, 1000);
+            freqArth = builder.comment("frequency at which arthritis will occur when using items (values in ticks)").translation("translate.pick.vanilla").defineInRange("arthritis_frequency", 24_000 / 2, 1, 24_000 * 10);
+            freqEyes = builder.comment("frequency at which your eyes will go bad (values in ticks)").translation("translate.pick.vanilla").defineInRange("eye_frequency", 24_000 * 3, 1, 24_000 * 30);
 
             builder.pop();
         }
