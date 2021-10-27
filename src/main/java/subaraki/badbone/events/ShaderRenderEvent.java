@@ -16,7 +16,7 @@ import subaraki.badbone.registry.BadBoneEffects;
 public class ShaderRenderEvent {
 
     private static final String SHADER_NAME = "badbone:shaders/post/blur.json";
-    private static final ResourceLocation SHADER = new ResourceLocation(SHADER_NAME);
+    public static final ResourceLocation SHADER = new ResourceLocation(SHADER_NAME);
     private static final ResourceLocation NAUSEA_LOCATION = new ResourceLocation("textures/misc/nausea.png");
 
     @SubscribeEvent
