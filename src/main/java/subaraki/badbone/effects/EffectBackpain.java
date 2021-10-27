@@ -2,6 +2,10 @@ package subaraki.badbone.effects;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EffectBackpain extends MobEffect {
     public EffectBackpain() {
@@ -17,5 +21,8 @@ public class EffectBackpain extends MobEffect {
         return false;
     }
 
-
+    @Override
+    public List<ItemStack> getCurativeItems() {
+        return new ArrayList<>();
+    }
 }
