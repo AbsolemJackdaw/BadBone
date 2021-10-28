@@ -18,7 +18,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: org.spongepowered.asm.gradle.plugins.MixinGradlePlugin
 
-version = '1.17.1-1.0.0.2'
+version = '1.17.1-1.0.0.3'
 group = 'subaraki' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'badbone'
 
