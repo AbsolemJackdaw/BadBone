@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.PostChain;
+import net.minecraft.client.renderer.PostPass;
 import subaraki.badbone.client.init.BadBoneShaders;
 import subaraki.badbone.client.shader.ExtendedPostChain;
 
@@ -100,16 +101,19 @@ public class LevelRendererMixin
 			return;
 		}
 
-		EffectInstance shader = chain.getMainShader();
-
 		PROJECTION_INVERSE.load(RenderSystem.getProjectionMatrix());
 		PROJECTION_INVERSE.invert();
-
+	
 		VIEW_INVERSE.load(mtx.last().pose());
 		VIEW_INVERSE.invert();
 
-		shader.safeGetUniform("ProjInverseMat").set(PROJECTION_INVERSE);
-		shader.safeGetUniform("ViewInverseMat").set(VIEW_INVERSE);
+		for(PostPass pass : chain.passes)
+		{
+			EffectInstance shader = pass.getEffect();
+	
+			shader.safeGetUniform("ProjInverseMat").set(PROJECTION_INVERSE);
+			shader.safeGetUniform("ViewInverseMat").set(VIEW_INVERSE);
+		}
 
 		// if fabulous is enabled, restore our saved depth
 		if(this.transparencyChain != null)

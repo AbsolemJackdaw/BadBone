@@ -13,6 +13,9 @@ in vec2 oneTexel;
 
 out vec4 fragColor;
 
+// https://danielilett.com/2019-05-08-tut1-3-smo-blur/
+// Thank you!
+
 vec3 playerSpace(vec2 uv, float depth)
 {
 	vec3 ndc = vec3(uv, depth) * 2.0 - 1.0;

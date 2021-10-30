@@ -7,7 +7,6 @@ import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.Window;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.client.renderer.PostChain;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
@@ -27,11 +26,6 @@ public class ExtendedPostChain extends PostChain
 	{
 		this(Minecraft.getInstance().getTextureManager(), Minecraft.getInstance().getResourceManager(), Minecraft.getInstance().getMainRenderTarget(), new ResourceLocation(domain, "shaders/post/" + name + ".json"));
 		this.resize(Minecraft.getInstance().getWindow().getWidth(), Minecraft.getInstance().getWindow().getHeight());
-	}
-
-	public EffectInstance getMainShader()
-	{
-		return this.passes.get(0).getEffect();
 	}
 
 	@Override
