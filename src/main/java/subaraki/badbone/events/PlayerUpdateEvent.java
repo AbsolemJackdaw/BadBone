@@ -105,7 +105,7 @@ public class PlayerUpdateEvent {
     @SubscribeEvent
     public static void playerFall(LivingHurtEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
-            if (player.fallDistance > 1 && event.getSource().equals(DamageSource.FALL) && player.getRandom().nextInt(ConfigData.frequencyKnee) == 0  && isInSurvivalMode(player)) {
+            if (player.fallDistance > 3 && event.getSource().equals(DamageSource.FALL) && player.getRandom().nextInt(ConfigData.frequencyKnee) == 0  && isInSurvivalMode(player)) {
                 player.addEffect(new MobEffectInstance(BadBoneEffects.KNEE_HURT.get(), player.getRandom().nextInt(20 * 15) * (int) player.fallDistance, 0, false, false, true));
                 playHurtSound(player);
             }
