@@ -4,8 +4,7 @@
   "compatibilityLevel": "JAVA_16",
   "refmap": "badbone.refmap.json",
   "client": [
-    "EffectToggleRIPMixin",
-    "EffectToggleRIPMixin$EffectField",
+	"LevelRendererMixin",
     "NauseaForgeGuiMixin",
     "NauseaGameRendererMixin",
     "NauseaGuiMixin",
