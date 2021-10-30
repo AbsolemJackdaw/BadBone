@@ -22,7 +22,7 @@ public class ShaderRenderEvent {
     @SubscribeEvent
     public static void renderShader(RenderWorldLastEvent event) {
         Player player = Minecraft.getInstance().player;
-        if (player.hasEffect(BadBoneEffects.BLIND.get()) && !(player.getInventory().getArmor(3).getItem() instanceof GlassesItem)) {
+        if (player.hasEffect(BadBoneEffects.BLIND.get()) && PlayerUpdateEvent.isInSurvivalMode(player) && !(player.getInventory().getArmor(3).getItem() instanceof GlassesItem)) {
             PostChain shader = Minecraft.getInstance().gameRenderer.currentEffect();
             if (shader == null || !shader.getName().equals(SHADER_NAME)) {
                 Minecraft.getInstance().gameRenderer.loadEffect(SHADER);

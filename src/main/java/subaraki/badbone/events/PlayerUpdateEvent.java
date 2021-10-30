@@ -34,7 +34,7 @@ public class PlayerUpdateEvent {
     @SubscribeEvent
     public static void playerUpdate(TickEvent.PlayerTickEvent event) {
         if (event.player instanceof ServerPlayer player) {
-            if (!player.hasEffect(BadBoneEffects.BACK_HURT.get())) {
+            if (!player.hasEffect(BadBoneEffects.BACK_HURT.get()) && isInSurvivalMode(player)) {
                 if (player.getRandom().nextInt(ConfigData.frequencyHurt) == 0 || player.getStats().getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST)) < 100) {
                     float fullInv = 4 * 9 * 64; //four rows of 9 slots with 64 items in
                     float totalCarrying = 0;
@@ -52,7 +52,7 @@ public class PlayerUpdateEvent {
                 }
             }
 
-            if (player.hasEffect(BadBoneEffects.ARTHRITIS.get())) {
+            if (player.hasEffect(BadBoneEffects.ARTHRITIS.get()) && isInSurvivalMode(player)) {
                 if (player.getMainHandItem().getAttributeModifiers(EquipmentSlot.MAINHAND).containsKey(Attributes.ATTACK_DAMAGE)) {
                     player.drop(player.getMainHandItem(), true);
                     player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -69,13 +69,14 @@ public class PlayerUpdateEvent {
                 }
             }
 
-            if (!player.hasEffect(BadBoneEffects.BLIND.get())) {
+            if (!player.hasEffect(BadBoneEffects.BLIND.get()) && isInSurvivalMode(player)) {
                 if (player.getRandom().nextInt(ConfigData.frequencyEyes) == 0) {
                     player.addEffect(new MobEffectInstance(BadBoneEffects.BLIND.get(), player.getRandom().nextInt(20 * 60 * 15) + 20 * 60 * 15, 0, false, false, true));
                     player.getAdvancements().award(player.getServer().getAdvancements().getAdvancement(ADVANCEMENT), "eyesight");
                 }
             }
-            if (player.hasEffect(BadBoneEffects.CHRONO.get())) {
+
+            if (player.hasEffect(BadBoneEffects.CHRONO.get()) && isInSurvivalMode(player)) {
                 if (!player.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED)))
                     player.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED));
             } else {
@@ -104,7 +105,7 @@ public class PlayerUpdateEvent {
     @SubscribeEvent
     public static void playerFall(LivingHurtEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
-            if (player.fallDistance > 3 && event.getSource().equals(DamageSource.FALL) && player.getRandom().nextInt(ConfigData.frequencyKnee) == 0) {
+            if (player.fallDistance > 3 && event.getSource().equals(DamageSource.FALL) && player.getRandom().nextInt(ConfigData.frequencyKnee) == 0  && isInSurvivalMode(player)) {
                 player.addEffect(new MobEffectInstance(BadBoneEffects.KNEE_HURT.get(), player.getRandom().nextInt(20 * 15) * (int) player.fallDistance, 0, false, false, true));
                 playHurtSound(player);
             }
@@ -129,5 +130,9 @@ public class PlayerUpdateEvent {
     private static void playHurtSound(Player player) {
         player.playNotifySound(SoundEvents.BONE_BLOCK_BREAK, SoundSource.PLAYERS, 1f, player.getRandom().nextFloat() + 1f);
         player.playNotifySound(SoundEvents.PLAYER_HURT, SoundSource.PLAYERS, 1f, player.getRandom().nextFloat() + 1f);
+    }
+
+    public static boolean isInSurvivalMode(Player player) {
+        return !player.isSpectator() && !player.isCreative();
     }
 }
