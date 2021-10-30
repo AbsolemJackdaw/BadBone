@@ -22,7 +22,7 @@ public abstract class EffectToggleRIPMixin {
      */
     @Overwrite
     public void togglePostEffect() {
-        if (this.currentEffect() != null && this.currentEffect().getName() != null)
+        if (this.currentEffect() != null && this.currentEffect().getName() != null && !this.currentEffect().getName().isBlank())
             if (!this.currentEffect().getName().equals(ShaderRenderEvent.SHADER.toString())) {
                 ((EffectField) this).setActive(!((EffectField) this).getEffectActive());
             }
