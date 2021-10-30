@@ -34,58 +34,59 @@ public class PlayerUpdateEvent {
     @SubscribeEvent
     public static void playerUpdate(TickEvent.PlayerTickEvent event) {
         if (event.player instanceof ServerPlayer player) {
-            if (!player.hasEffect(BadBoneEffects.BACK_HURT.get()) && isInSurvivalMode(player)) {
-                if (player.getRandom().nextInt(ConfigData.frequencyHurt) == 0 || player.getStats().getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST)) < 100) {
-                    float fullInv = 4 * 9 * 64; //four rows of 9 slots with 64 items in
-                    float totalCarrying = 0;
-                    for (ItemStack stack : player.getInventory().items) {
-                        totalCarrying += stack.isEmpty() ? 0f : 64f * ((float) stack.getCount() / (float) stack.getMaxStackSize());
-                    }
-                    //the closer to 0 weight is, the more the player carries
-                    //if the weight is taking up 2/3-ish from the inventory, then you can start having back pain
-                    if (totalCarrying > fullInv * 0.65f) {
-                        if (player.getRandom().nextInt(ConfigData.chanceHurt) == 0) {
-                            player.addEffect(new MobEffectInstance(BadBoneEffects.BACK_HURT.get(), player.getRandom().nextInt(20 * 60 * 2) + 20 * 15, 0, false, false, true));
-                            playHurtSound(player);
+            if (isInSurvivalMode(player)) {
+                if (!player.hasEffect(BadBoneEffects.BACK_HURT.get())) {
+                    if (player.getRandom().nextInt(ConfigData.frequencyHurt) == 0 || player.getStats().getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST)) < 100) {
+                        float fullInv = 4 * 9 * 64; //four rows of 9 slots with 64 items in
+                        float totalCarrying = 0;
+                        for (ItemStack stack : player.getInventory().items) {
+                            totalCarrying += stack.isEmpty() ? 0f : 64f * ((float) stack.getCount() / (float) stack.getMaxStackSize());
+                        }
+                        //the closer to 0 weight is, the more the player carries
+                        //if the weight is taking up 2/3-ish from the inventory, then you can start having back pain
+                        if (totalCarrying > fullInv * 0.65f) {
+                            if (player.getRandom().nextInt(ConfigData.chanceHurt) == 0) {
+                                player.addEffect(new MobEffectInstance(BadBoneEffects.BACK_HURT.get(), player.getRandom().nextInt(20 * 60 * 2) + 20 * 15, 0, false, false, true));
+                                playHurtSound(player);
+                            }
                         }
                     }
                 }
-            }
 
-            if (player.hasEffect(BadBoneEffects.ARTHRITIS.get()) && isInSurvivalMode(player)) {
-                if (player.getMainHandItem().getAttributeModifiers(EquipmentSlot.MAINHAND).containsKey(Attributes.ATTACK_DAMAGE)) {
-                    player.drop(player.getMainHandItem(), true);
-                    player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                    playHurtSound(player);
+                if (player.hasEffect(BadBoneEffects.ARTHRITIS.get())) {
+                    if (player.getMainHandItem().getAttributeModifiers(EquipmentSlot.MAINHAND).containsKey(Attributes.ATTACK_DAMAGE)) {
+                        player.drop(player.getMainHandItem(), true);
+                        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+                        playHurtSound(player);
+                    }
+                    if (player.getOffhandItem().getAttributeModifiers(EquipmentSlot.OFFHAND).containsKey(Attributes.ATTACK_DAMAGE)) {
+                        player.drop(player.getOffhandItem(), true);
+                        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                        playHurtSound(player);
+                    }
+                } else {
+                    if (player.isUsingItem() && player.getRandom().nextInt(ConfigData.frequencyArthritis) == 0) {
+                        player.addEffect(new MobEffectInstance(BadBoneEffects.ARTHRITIS.get(), player.getRandom().nextInt(20 * 60 * 2) + 20 * 15, 0, false, false, true));
+                    }
                 }
-                if (player.getOffhandItem().getAttributeModifiers(EquipmentSlot.OFFHAND).containsKey(Attributes.ATTACK_DAMAGE)) {
-                    player.drop(player.getOffhandItem(), true);
-                    player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-                    playHurtSound(player);
+
+                if (!player.hasEffect(BadBoneEffects.BLIND.get())) {
+                    if (player.getRandom().nextInt(ConfigData.frequencyEyes) == 0) {
+                        player.addEffect(new MobEffectInstance(BadBoneEffects.BLIND.get(), player.getRandom().nextInt(20 * 60 * 15) + 20 * 60 * 15, 0, false, false, true));
+                        player.getAdvancements().award(player.getServer().getAdvancements().getAdvancement(ADVANCEMENT), "eyesight");
+                    }
                 }
-            } else {
-                if (player.isUsingItem() && player.getRandom().nextInt(ConfigData.frequencyArthritis) == 0) {
-                    player.addEffect(new MobEffectInstance(BadBoneEffects.ARTHRITIS.get(), player.getRandom().nextInt(20 * 60 * 2) + 20 * 15, 0, false, false, true));
+
+                if (player.hasEffect(BadBoneEffects.CHRONO.get()) && isInSurvivalMode(player)) {
+                    if (!player.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED)))
+                        player.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED));
+                } else {
+                    if (player.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED)))
+                        player.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED));
+
                 }
             }
-
-            if (!player.hasEffect(BadBoneEffects.BLIND.get()) && isInSurvivalMode(player)) {
-                if (player.getRandom().nextInt(ConfigData.frequencyEyes) == 0) {
-                    player.addEffect(new MobEffectInstance(BadBoneEffects.BLIND.get(), player.getRandom().nextInt(20 * 60 * 15) + 20 * 60 * 15, 0, false, false, true));
-                    player.getAdvancements().award(player.getServer().getAdvancements().getAdvancement(ADVANCEMENT), "eyesight");
-                }
-            }
-
-            if (player.hasEffect(BadBoneEffects.CHRONO.get()) && isInSurvivalMode(player)) {
-                if (!player.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED)))
-                    player.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED));
-            } else {
-                if (player.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED)))
-                    player.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED));
-
-            }
-
-
+            //heal even if in creative
             BlockPos bubble = event.player.blockPosition();
             BlockPos magma = event.player.getOnPos();
             Level level = event.player.level;
@@ -105,7 +106,8 @@ public class PlayerUpdateEvent {
     @SubscribeEvent
     public static void playerFall(LivingHurtEvent event) {
         if (event.getEntityLiving() instanceof Player player) {
-            if (player.fallDistance > 3 && event.getSource().equals(DamageSource.FALL) && player.getRandom().nextInt(ConfigData.frequencyKnee) == 0  && isInSurvivalMode(player)) {
+            //check for damage > 0.4f to prevent non damage falls like slime blocks to generate knee pain
+            if (player.fallDistance > 3 && event.getSource().equals(DamageSource.FALL) && event.getAmount() > 0.4f && player.getRandom().nextInt(ConfigData.frequencyKnee) == 0 && isInSurvivalMode(player)) {
                 player.addEffect(new MobEffectInstance(BadBoneEffects.KNEE_HURT.get(), player.getRandom().nextInt(20 * 15) * (int) player.fallDistance, 0, false, false, true));
                 playHurtSound(player);
             }
@@ -114,15 +116,14 @@ public class PlayerUpdateEvent {
 
     @SubscribeEvent
     public static void playerPickup(PlayerEvent.ItemPickupEvent event) {
-        if (event.getStack().getItem().equals(Items.CLOCK)) {
+        if (event.getStack().getItem().equals(Items.CLOCK) && isInSurvivalMode(event.getPlayer())) {
             event.getPlayer().addEffect(new MobEffectInstance(BadBoneEffects.CHRONO.get(), 20 * 90, 0, false, false, true));
-
         }
     }
 
     @SubscribeEvent
     public static void playerCraft(PlayerEvent.ItemCraftedEvent event) {
-        if (event.getCrafting().getItem().equals(Items.CLOCK)) {
+        if (event.getCrafting().getItem().equals(Items.CLOCK) && isInSurvivalMode(event.getPlayer())) {
             event.getPlayer().addEffect(new MobEffectInstance(BadBoneEffects.CHRONO.get(), 20 * 90, 0, false, false, true));
         }
     }
