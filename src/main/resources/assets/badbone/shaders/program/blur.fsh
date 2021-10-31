@@ -33,7 +33,7 @@ float remap(float v, float minOld, float maxOld, float minNew, float maxNew)
 
 float gaussian(int x)
 {
-	float sigma = 10.0; // standard deviation. No idea what this actually does
+	float sigma = 25.0; // standard deviation. No idea what this actually does
 	float sigmaSq = sigma * sigma;
 
 	// 1 / sqrt(2 * PI) = 0.398942
@@ -57,7 +57,7 @@ void main()
 	// Set kernel radius (blur strength) to be dependent on depth
 	// So at 0 distance kernel radius = 0 (no blur) and at 8 (or more) distance it is 16
 
-	int kernelRadius = int(remap(clamp(dstToSurface, 0.0, 8.0), 0.0, 8.0, 0.0, 16.0));
+	int kernelRadius = int(remap(clamp(dstToSurface, 4.0, 8.0), 4.0, 8.0, 0.0, 32.0));
 
 	if(kernelRadius == 0)
 	{
@@ -78,4 +78,6 @@ void main()
 	}
 
 	fragColor = vec4(color, 1.0);
+	
+	gl_FragDepth = depth;
 }
