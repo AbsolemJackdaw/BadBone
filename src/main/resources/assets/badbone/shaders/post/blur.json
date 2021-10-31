@@ -25,14 +25,14 @@
 			]
 		},
 		{
-			"name": "blur",
+			"name": "badbone:blur",
 			"intarget": "swap",
 			"outtarget": "minecraft:main",
 			"auxtargets":
 			[
 				{
 					"name": "DiffuseDepthSampler",
-					"id": "minecraft:main:depth"
+					"id": "swap:depth"
 				}
 			],
 			"uniforms":
