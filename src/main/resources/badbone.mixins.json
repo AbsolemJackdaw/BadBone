@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_16",
   "refmap": "badbone.refmap.json",
   "client": [
+	"GameRendererMixin",
 	"LevelRendererMixin",
     "NauseaForgeGuiMixin",
     "NauseaGameRendererMixin",
