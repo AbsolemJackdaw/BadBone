@@ -17,6 +17,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import subaraki.badbone.client.init.BadBoneShaders;
 import subaraki.badbone.client.shader.ExtendedPostChain;
+import subaraki.badbone.events.PlayerUpdateEvent;
+import subaraki.badbone.items.GlassesItem;
+import subaraki.badbone.registry.BadBoneEffects;
 
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
@@ -83,9 +86,8 @@ public class LevelRendererMixin {
     private void applyBlur(PoseStack mtx, float frameTime) {
         Minecraft mc = Minecraft.getInstance();
 
-        // if(!mc.player.hasEffect(BadBoneEffects.BLIND.get()) || !PlayerUpdateEvent.isInSurvivalMode(mc.player) || mc.player.getInventory().getArmor(3).getItem() instanceof GlassesItem)
-        {
-            // return;
+        if (!mc.player.hasEffect(BadBoneEffects.BLIND.get()) || !PlayerUpdateEvent.isInSurvivalMode(mc.player) || mc.player.getInventory().getArmor(3).getItem() instanceof GlassesItem) {
+            return;
         }
 
         ExtendedPostChain chain = BadBoneShaders.INSTANCE.getBlur();
@@ -105,9 +107,8 @@ public class LevelRendererMixin {
 
             shader.safeGetUniform("ProjInverseMat").set(PROJECTION_INVERSE);
             shader.safeGetUniform("ViewInverseMat").set(VIEW_INVERSE);
-            long l = minecraft.player.getUUID().getMostSignificantBits() % 100;
-            boolean flag = l < 50;
-            shader.safeGetUniform("SightedType").set(flag ? SHORT : FAR);
+            float[] sightShader = minecraft.player.getUUID().getMostSignificantBits() % 100 < 50 ? SHORT : FAR;
+            shader.safeGetUniform("SightedType").set(sightShader);
 
         }
 
