@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[37,)"
+license="GNU v3"
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+[[mods]]
+modId="badbone"
+version="${file.jarVersion}"
+displayName="Bad to the Bone"
+#updateJSONURL="https://change.me.example.invalid/updates.json"
+#displayURL="https://www.curseforge.com/minecraft/mc-mods/bad-to-the-bone"
+logoFile="logo.png"
+credits="My busted hip and back at the age of 28."
+authors="Subaraki"
+description='''
+This mod was made for Spookyjam 2021.
+getting old is spooky !
+having back and/or hip issues is scary too !
+Please take care of your body !
+'''
+[[dependencies.badbone]]
+    modId="forge
+    mandatory=true
+    versionRange="[38,)"
+    ordering="NONE"
+    side="BOTH"
+# Here's another dependency
+[[dependencies.badbone]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18,1.19)"
+    ordering="NONE"
+    side="BOTH"
