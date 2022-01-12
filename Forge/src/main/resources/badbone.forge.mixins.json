@@ -4,7 +4,11 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "${refmap_target}refmap.json",
   "client": [
-    "NauseaForgeGuiMixin"
+    "LevelRendererMixin",
+    "NauseaForgeGuiMixin",
+    "NauseaGameRendererMixin",
+    "NauseaGuiMixin",
+    "NauseaPlayerMixin"
   ],
   "minVersion": "0.8",
   "injectors": {

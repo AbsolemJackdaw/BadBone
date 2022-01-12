@@ -11,7 +11,11 @@
     "MixinResultSlot"
   ],
   "client": [
-    "AccessorPostChain"
+    "AccessorPostChain",
+    "LevelRendererMixin",
+    "NauseaGameRendererMixin",
+    "NauseaGuiMixin",
+    "NauseaPlayerMixin"
   ],
   "minVersion": "0.8",
   "injectors": {
