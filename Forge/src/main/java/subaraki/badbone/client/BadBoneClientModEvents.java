@@ -8,9 +8,6 @@ import subaraki.badbone.BadBone;
 
 @Mod.EventBusSubscriber(modid = BadBone.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class BadBoneClientModEvents {
-    private BadBoneClientModEvents() {
-    }
-
     @SubscribeEvent
     public static void registerReloadListeners(RegisterClientReloadListenersEvent e) {
         e.registerReloadListener(BadBoneShaders.INSTANCE);

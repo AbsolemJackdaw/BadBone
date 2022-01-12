@@ -1,13 +1,13 @@
 modLoader="javafml"
 loaderVersion="[37,)"
 license="GNU v3"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
 [[mods]]
 modId="badbone"
 version="${file.jarVersion}"
 displayName="Bad to the Bone"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
-#displayURL="https://www.curseforge.com/minecraft/mc-mods/bad-to-the-bone"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/bad-to-the-bone"
 logoFile="logo.png"
 credits="My busted hip and back at the age of 28."
 authors="Subaraki"
@@ -18,7 +18,7 @@ having back and/or hip issues is scary too !
 Please take care of your body !
 '''
 [[dependencies.badbone]]
-    modId="forge
+    modId="forge"
     mandatory=true
     versionRange="[38,)"
     ordering="NONE"

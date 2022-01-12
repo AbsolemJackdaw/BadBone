@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "subaraki.badbone.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "${refmap_target}refmap.json",
+  "client": [
+    "NauseaForgeGuiMixin"
+  ],
+  "minVersion": "0.8",
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

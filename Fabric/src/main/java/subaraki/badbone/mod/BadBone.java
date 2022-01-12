@@ -17,11 +17,11 @@ import subaraki.badbone.events.PlayerEvents;
 import subaraki.badbone.items.CommonGlassesItem;
 
 public class BadBone implements ModInitializer {
-    public static final MobEffect CHRONO = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "chrono"), new CommonEffectChronophobia());
-    public static final MobEffect BLIND = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "eye"), new CommonEffectBlind());
-    public static final MobEffect ARTHRITIS = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "arthritis"), new CommonEffectArthritis());
-    public static final MobEffect KNEE_HURT = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "knee"), new CommonEffectWeakKnees());
-    public static final MobEffect BACK_HURT = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "hurt"), new CommonEffectBackpain());
+    public static final MobEffect CHRONO = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "chrono"), new EffectChronophobia());
+    public static final MobEffect BLIND = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "eye"), new EffectBlind());
+    public static final MobEffect ARTHRITIS = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "arthritis"), new EffectArthritis());
+    public static final MobEffect KNEE_HURT = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "knee"), new EffectWeakKnees());
+    public static final MobEffect BACK_HURT = Registry.register(Registry.MOB_EFFECT, new ResourceLocation(subaraki.badbone.BadBone.MODID, "hurt"), new EffectBackpain());
     private static final Item.Properties PROPERTIES = new FabricItemSettings().equipmentSlot(stack -> EquipmentSlot.HEAD).tab(CreativeModeTab.TAB_TOOLS).stacksTo(1);
     public static final Item GLASSES = Registry.register(Registry.ITEM, new ResourceLocation(subaraki.badbone.BadBone.MODID, "glasses"), new CommonGlassesItem(PROPERTIES));
 
