@@ -2,50 +2,16 @@ package subaraki.badbone.mod;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
-import subaraki.badbone.CommonConfig;
 
 public class ConfigData {
 
     public static final ServerConfig SERVER;
     public static final ForgeConfigSpec SERVER_SPEC;
-    public static final ClientConfig CLIENT;
-    public static final ForgeConfigSpec CLIENT_SPEC;
-    public static int frequencyHurt = 24_000 / 3;
-    public static int chanceHurt = 10;
-    public static int frequencyKnee = 10;
-    public static int frequencyArthritis = 24_000;
-    public static int frequencyEyes = 24_000;
-
 
     static {
         final Pair<ServerConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ServerConfig::new);
         SERVER_SPEC = specPair.getRight();
         SERVER = specPair.getLeft();
-    }
-
-    static {
-        final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(ClientConfig::new);
-        CLIENT_SPEC = specPair.getRight();
-        CLIENT = specPair.getLeft();
-    }
-
-    public static void refreshClient() {
-
-    }
-
-    public static void refreshServer() {
-        CommonConfig.frequencyHurt = SERVER.freqHurt.get();
-        CommonConfig.frequencyKnee = SERVER.freqKnee.get();
-        CommonConfig.frequencyArthritis = SERVER.freqArth.get();
-        CommonConfig.frequencyEyes = SERVER.freqEyes.get();
-        CommonConfig.chanceHurt = SERVER.chanHurt.get();
-
-        frequencyHurt = SERVER.freqHurt.get();
-        frequencyKnee = SERVER.freqKnee.get();
-        frequencyArthritis = SERVER.freqArth.get();
-        frequencyEyes = SERVER.freqEyes.get();
-        chanceHurt = SERVER.chanHurt.get();
-
     }
 
     public static class ServerConfig {
@@ -66,13 +32,6 @@ public class ConfigData {
             freqEyes = builder.comment("frequency at which your eyes will go bad (values in ticks)").defineInRange("blurry_eyes_frequency", 24_000 * 3, 1, 24_000 * 30);
 
             builder.pop();
-        }
-    }
-
-    public static class ClientConfig {
-
-        ClientConfig(ForgeConfigSpec.Builder builder) {
-
         }
     }
 }

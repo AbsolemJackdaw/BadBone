@@ -8,6 +8,7 @@ public class Services {
 
     public static final IClientHelper CLIENT_HELPER = load(IClientHelper.class);
     public static final IEffectHelper EFFECT_HELPER = load(IEffectHelper.class);
+    public static final IConfigHelper CONFIG_HELPER = load(IConfigHelper.class);
 
     public static <T> T load(Class<T> clazz) {
         final T loadedService = ServiceLoader.load(clazz).findFirst().orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));

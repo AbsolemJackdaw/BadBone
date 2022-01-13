@@ -6,16 +6,16 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import subaraki.badbone.BadBone;
 import subaraki.badbone.EventImpl;
 import subaraki.badbone.registry.BadBoneEffects;
 
-@Mod.EventBusSubscriber(modid = subaraki.badbone.BadBone.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = BadBone.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerUpdateEvent {
 
     @SubscribeEvent
     public static void playerUpdate(TickEvent.PlayerTickEvent event) {
-        EventImpl.playerTick(event.player, BadBoneEffects.BACK_HURT.get(), BadBoneEffects.ARTHRITIS.get(),
-                BadBoneEffects.KNEE_HURT.get(), BadBoneEffects.CHRONO.get(), BadBoneEffects.BLIND.get());
+        EventImpl.playerTick(event.player);
     }
 
     @SubscribeEvent

@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nullable;
 
 public class GlassesItem extends CommonGlassesItem {
-    private static final Properties PROPERTIES = new Properties().tab(CreativeModeTab.TAB_TOOLS);
+    private static final Properties PROPERTIES = new Properties().tab(CreativeModeTab.TAB_TOOLS).stacksTo(1);
 
     public GlassesItem() {
         super(PROPERTIES);

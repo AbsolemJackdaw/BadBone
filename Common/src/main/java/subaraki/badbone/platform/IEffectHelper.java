@@ -6,4 +6,10 @@ public interface IEffectHelper {
     MobEffect getBlindEffect();
 
     MobEffect getChronoEffect();
+
+    MobEffect getKneeHurtEffect();
+
+    MobEffect getBackHurtEffect();
+
+    MobEffect getArthritisEffect();
 }

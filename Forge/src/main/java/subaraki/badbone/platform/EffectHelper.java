@@ -13,4 +13,19 @@ public class EffectHelper implements IEffectHelper {
     public MobEffect getChronoEffect() {
         return BadBoneEffects.CHRONO.get();
     }
+
+    @Override
+    public MobEffect getKneeHurtEffect() {
+        return BadBoneEffects.KNEE_HURT.get();
+    }
+
+    @Override
+    public MobEffect getBackHurtEffect() {
+        return BadBoneEffects.BACK_HURT.get();
+    }
+
+    @Override
+    public MobEffect getArthritisEffect() {
+        return BadBoneEffects.ARTHRITIS.get();
+    }
 }

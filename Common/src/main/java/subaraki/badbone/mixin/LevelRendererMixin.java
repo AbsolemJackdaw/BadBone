@@ -85,7 +85,6 @@ public class LevelRendererMixin {
     @Unique
     private void applyBlur(PoseStack mtx, float frameTime) {
         Minecraft mc = Minecraft.getInstance();
-        System.out.println("Test");
 
         if (!mc.player.hasEffect(Services.EFFECT_HELPER.getBlindEffect()) || !EventImpl.isInSurvivalMode(mc.player) || mc.player.getInventory().getArmor(3).getItem() instanceof CommonGlassesItem) {
             return;
@@ -94,7 +93,6 @@ public class LevelRendererMixin {
         ExtendedPostChain chain = BadBoneShaders.INSTANCE.getBlur();
 
         if (chain == null) {
-            System.out.println("Returning cause null");
             return;
         }
 
