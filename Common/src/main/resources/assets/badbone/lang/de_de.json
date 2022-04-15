@@ -1,0 +1,12 @@
+{
+  "effect.badbone.hurt": "Rückenschmerzen",
+  "effect.badbone.knee": "Knieschmerzen",
+  "effect.badbone.arthritis": "Gelenkentzündung",
+  "effect.badbone.eye": "schwaches Augenlicht",
+  "effect.badbone.chrono": "Chronophobie",
+
+  "advancements.badbone.eyesight.title": "Das Augenlicht zu verlieren ist scheußlich",
+  "advancements.badbone.eyesight.description": "Ich fürchte, ich brauche eine Brille... ",
+
+  "item.badbone.glasses": "Brille"
+}
