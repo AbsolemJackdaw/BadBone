@@ -1,49 +1,32 @@
 package subaraki.badbone.mixin;
 
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MilkBucketItem;
-import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import subaraki.badbone.effects.NotCurable;
 
 import java.util.Iterator;
 
 @Mixin(MilkBucketItem.class)
 public abstract class MixinMilkBucket {
-
-    /**
-     * @author StrikerRocker
-     */
-    @Overwrite
-    public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
-        if (!level.isClientSide()) {
-            Iterator<MobEffectInstance> itr = livingEntity.getActiveEffectsMap().values().iterator();
-            while (itr.hasNext()) {
-                MobEffectInstance effect = itr.next();
-                if (!(effect.getEffect() instanceof NotCurable)) {
-                    ((AccessorLivingEntity) livingEntity).invokeOnEffectRemoved(effect);
-                    itr.remove();
-                    ((AccessorLivingEntity) livingEntity).setEffectsDirty(true);
+    @Redirect(method = "finishUsingItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;removeAllEffects()Z"))
+    public boolean injectEffects(LivingEntity entity) {
+        if (entity.level.isClientSide) {
+            return false;
+        } else {
+            Iterator<MobEffectInstance> iterator = entity.getActiveEffects().iterator();
+            boolean $$1;
+            for ($$1 = false; iterator.hasNext(); $$1 = true) {
+                MobEffectInstance mobEffectInstance = iterator.next();
+                if (!(mobEffectInstance.getEffect() instanceof NotCurable)) {
+                    ((AccessorLivingEntity) entity).invokeOnEffectRemoved(mobEffectInstance);
+                    iterator.remove();
                 }
             }
+            return $$1;
         }
-        if (livingEntity instanceof ServerPlayer serverPlayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, itemStack);
-            serverPlayer.awardStat(Stats.ITEM_USED.get(((MilkBucketItem) (Object) this)));
-        }
-
-        if (livingEntity instanceof Player && !((Player) livingEntity).getAbilities().instabuild) {
-            itemStack.shrink(1);
-        }
-
-        return itemStack.isEmpty() ? new ItemStack(Items.BUCKET) : itemStack;
     }
 }
