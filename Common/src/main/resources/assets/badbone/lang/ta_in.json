@@ -1,0 +1,15 @@
+{
+  "effect.badbone.hurt": "முதுகு வலி",
+  "effect.badbone.knee": "மூட்டு வலி",
+  "effect.badbone.arthritis": "கீல்வாதம்",
+  "effect.badbone.eye": "கெட்ட கண்கள்",
+  "effect.badbone.chrono": "க்ரோனோபோபியா",
+  "advancements.badbone.eyesight.title": "பார்வையை இழப்பது ஒரு ஓநாய்",
+  "advancements.badbone.eyesight.description": "எனக்கு கண்ணாடி வேணும்...",
+  "item.badbone.glasses": "கண்ணாடிகள்",
+  "text.autoconfig.badbone.option.frequencyArthritis": "Frequency at which arthritis will occur when using items (values in ticks)",
+  "text.autoconfig.badbone.option.frequencyHurt": "frequency at which the inventory gets checked for back pain (values in ticks)",
+  "text.autoconfig.badbone.option.chanceHurt": "Chance to have back pain applied when inventory is too full",
+  "text.autoconfig.badbone.option.frequencyKnee": "Frequency at which your knees can go bad when falling (values in ticks)",
+  "text.autoconfig.badbone.option.frequencyEyes": "Frequency at which your eyes will go bad (values in ticks)"
+}
