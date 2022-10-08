@@ -1,0 +1,15 @@
+{
+  "effect.badbone.hurt": "पीठ दर्द",
+  "effect.badbone.knee": "घुटनों का दर्द",
+  "effect.badbone.arthritis": "गठिया",
+  "effect.badbone.eye": "असभ्य आंखें",
+  "effect.badbone.chrono": "क्रोनोफोबिया",
+  "advancements.badbone.eyesight.title": "दृष्टि खोना एक भेड़िया है",
+  "advancements.badbone.eyesight.description": "मुझे कुछ चश्मे की आवश्यकता होगी ... ",
+  "item.badbone.glasses": "उपनेत्र",
+  "text.autoconfig.badbone.option.frequencyArthritis": "आवृत्ति जिस पर वस्तुओं का उपयोग करते समय गठिया होगा (values in ticks)",
+  "text.autoconfig.badbone.option.frequencyHurt": "आवृत्ति जिस पर पीठ दर्द के लिए इन्वेंट्री की जाँच की जाती है (values in ticks)",
+  "text.autoconfig.badbone.option.chanceHurt": "इन्वेंट्री बहुत अधिक होने पर पीठ दर्द होने की संभावना",
+  "text.autoconfig.badbone.option.frequencyKnee": "आवृत्ति जिस पर गिरने पर आपके घुटने खराब हो सकते हैं (values in ticks)",
+  "text.autoconfig.badbone.option.frequencyEyes": "आवृत्ति जिस पर आपकी आंखें खराब हो जाएंगी (values in ticks)"
+}
