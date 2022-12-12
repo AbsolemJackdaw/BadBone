@@ -3,14 +3,14 @@ package subaraki.badbone.mixin;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import subaraki.badbone.registry.BadBoneEffects;
 
-@Mixin(ForgeIngameGui.class)
-public class NauseaForgeGuiMixin {
+@Mixin(VanillaGuiOverlay.class)
+public class VanillaGuiOverlayMixin {
 
     @Redirect(method = "lambda$static$4", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;hasEffect(Lnet/minecraft/world/effect/MobEffect;)Z"))
     private static boolean hasEffect(LocalPlayer instance, MobEffect mobEffect) {

@@ -1,6 +1,8 @@
 package subaraki.badbone.mod;
 
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -24,5 +26,11 @@ public class BadBoneForge {
 
         ModLoadingContext modLoadingContext = ModLoadingContext.get();
         modLoadingContext.registerConfig(ModConfig.Type.SERVER, ConfigData.SERVER_SPEC);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(BadBoneForge::registerCreativeTabs);
+    }
+
+    public static void registerCreativeTabs(CreativeModeTabEvent.BuildContents event) {
+        if (event.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES)
+            event.accept(GLASSES);
     }
 }

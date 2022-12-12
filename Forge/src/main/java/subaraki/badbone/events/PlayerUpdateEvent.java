@@ -20,17 +20,17 @@ public class PlayerUpdateEvent {
 
     @SubscribeEvent
     public static void playerFall(LivingHurtEvent event) {
-        if (event.getEntityLiving() instanceof Player player)
+        if (event.getEntity() instanceof Player player)
             EventImpl.playerHurt(player, event.getSource(), event.getAmount(), BadBoneEffects.KNEE_HURT.get());
     }
 
     @SubscribeEvent
     public static void playerPickup(PlayerEvent.ItemPickupEvent event) {
-        EventImpl.itemCraftedOrPicked(event.getPlayer(), event.getStack(), BadBoneEffects.CHRONO.get());
+        EventImpl.itemCraftedOrPicked(event.getEntity(), event.getStack(), BadBoneEffects.CHRONO.get());
     }
 
     @SubscribeEvent
     public static void playerCraft(PlayerEvent.ItemCraftedEvent event) {
-        EventImpl.itemCraftedOrPicked(event.getPlayer(), event.getCrafting(), BadBoneEffects.CHRONO.get());
+        EventImpl.itemCraftedOrPicked(event.getEntity(), event.getCrafting(), BadBoneEffects.CHRONO.get());
     }
 }

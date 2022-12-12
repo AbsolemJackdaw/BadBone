@@ -90,7 +90,7 @@ public class EventImpl {
                         serverPlayer.getAdvancements().award(serverPlayer.getServer().getAdvancements().getAdvancement(ADVANCEMENT), "eyesight");
                     }
                 }
-                if (serverPlayer.hasEffect(effects.getBlindEffect())) {
+                if (serverPlayer.hasEffect(effects.getChronoEffect())) {
                     if (!serverPlayer.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED)))
                         serverPlayer.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(MobEffects.MOVEMENT_SLOWDOWN.getAttributeModifiers().get(Attributes.MOVEMENT_SPEED));
                 } else {
